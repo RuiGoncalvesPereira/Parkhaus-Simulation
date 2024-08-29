@@ -1,8 +1,11 @@
-Parkhaus-Simulation:
+# Parkhaus-Simulation
 
-Ein kleines Projekt in Java.
+Ein kleines Projekt in Java zur Simulation eines Parkhauses.
 
--Die Einfahrtsschranke öffnet sich, wenn sie ein Ticket gezogen haben. Ein Ticket bekommen Sie nur, wen noch freie Plätze verfügbar sind.
--Bezahlen Sie den Parkpreis [Minutenpreis] bei einer der auf den Stockwerken befindlichen Kassen.
--Fahren Sie bei einer der zwei Ausfahrtsschranken aus. Die Schranke öffnet sich nur, wenn das Ticket bezahlt wurde.
--Zeigen Sie auf dem Display vor dem Parkhaus an, wie viele Plätze noch frei sind. 
+## Funktionen
+
+- Die Einfahrtsschranke öffnet sich, wenn Sie ein Ticket gezogen haben. Ein Ticket erhalten Sie nur, wenn noch freie Plätze verfügbar sind.
+- Bezahlen Sie den Parkpreis (Minutenpreis) bei einer der auf den Stockwerken befindlichen Kassen.
+- Fahren Sie bei einer der zwei Ausfahrtsschranken aus. Die Schranke öffnet sich nur, wenn das Ticket bezahlt wurde.
+- Vor dem Parkhaus wird auf einem Display angezeigt, wie viele Plätze noch frei sind.
+
