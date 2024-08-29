@@ -18,15 +18,11 @@ public class Ticket {
         this.endZeit = endZeit;
     }
 
-    public Ticket(LocalDateTime startZeit) {
-        this.startZeit = startZeit;
-        this.endZeit = null;
-    }
-
     public boolean isBezahlt() {
         return bezahlt;
     }
 
+    //Setzt bezahlt auf den Standardwert false und stoppt die Zeit
     public void setBezahlt(boolean bezahlt) {
         this.bezahlt = bezahlt;
         if (bezahlt) {
@@ -34,6 +30,7 @@ public class Ticket {
         }
     }
 
+    //Rechnet den Preis indem sie die Zeit zwischen Einfahren und Ticket lösen berechnet.
     public double preisrechner() {
         if (endZeit == null) {
             endZeit = LocalDateTime.now();

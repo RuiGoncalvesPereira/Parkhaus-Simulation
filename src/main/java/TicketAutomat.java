@@ -1,5 +1,7 @@
 //Erstellt von: Rui Goncalves Pereira
 public class TicketAutomat {
+
+    //Prüft und "bezahlt" das Ticket.
     public void bezahlen(Ticket ticket) {
         if (ticket != null && !ticket.isBezahlt()) {
             double endpreis = ticket.preisrechner();

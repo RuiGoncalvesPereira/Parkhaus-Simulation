@@ -43,7 +43,7 @@ public class ParkplaetzeTest {
         for (int i = 0; i < 20; i++) {
             parkplaetze.belegtePlaetze();  //Belegt alle Plätze
         }
-        assertFalse(parkplaetze.hatFreiePlaetze(), "Keine plaetze mehr");
+        assertFalse(parkplaetze.hatFreiePlaetze());
 
         //Schauen, ob es noch ein Platz gibt
         parkplaetze.belegtePlaetze();

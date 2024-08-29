@@ -57,6 +57,7 @@ public class Parkhaus {
         }
     }
 
+    //Ins Parkhauseinfahren
     public void einfahren() {
         if (parkplaetze.hatFreiePlaetze() && ticket == null) {
             ticket = new Ticket();
@@ -70,6 +71,7 @@ public class Parkhaus {
         }
     }
 
+    // Aus dem Parhausausfahren
     public void ausfahren() {
         if (ticket != null && ticket.isBezahlt()) {
             schranke.ausfahren();
@@ -81,6 +83,7 @@ public class Parkhaus {
         }
     }
 
+    //Zwischen Stockwerken nach oben oder nach unten Fahren
     public void stockwerkFahren(Scanner scanner) {
         if (ticket != null) {
             System.out.println("1. Stockwerk nach oben");
@@ -99,4 +102,5 @@ public class Parkhaus {
     public Parkplaetze getParkplaetze() {
         return parkplaetze;
     }
+
 }
