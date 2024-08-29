@@ -1,5 +1,5 @@
 //Erstellt von: Rui Goncalves Pereira
-public class Schranke {
+public class Schranke{
 
     public void einfahren() {
         System.out.println("Schranke oeffnet sich. Sie koennen einfahren.");

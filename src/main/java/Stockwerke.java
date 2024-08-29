@@ -4,10 +4,11 @@ public class Stockwerke {
     private int maxStockwerke;
 
     public Stockwerke(int maxStockwerke) {
-        this.aktuellerStockwerk = 0; // Erdgeschoss
+        this.aktuellerStockwerk = 0; // In diesem Fall ist 0 das Erdgeschoss
         this.maxStockwerke = maxStockwerke;
     }
 
+    //Steigen oder absteigen
     public void fahren(String richtung) {
         if (richtung.equals("1") && aktuellerStockwerk < maxStockwerke) {
             aktuellerStockwerk++;
@@ -20,6 +21,7 @@ public class Stockwerke {
         }
     }
 
-
-
+    public int getAktuellerStockwerk() {
+        return aktuellerStockwerk;
+    }
 }
