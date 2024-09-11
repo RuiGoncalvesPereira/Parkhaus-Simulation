@@ -1,3 +1,5 @@
+//Erstellt von: Rui Goncalves Pereira
+
 import java.util.Scanner;
 
 public class Parkhaus {
@@ -8,7 +10,7 @@ public class Parkhaus {
     private Ticket ticket;
     private EinfahrtSchranke einfahrtSchranke;
     private AusfahrtSchranke ausfahrtSchranke;
-    private boolean imParkhaus = false;  // Check if car is inside
+    private boolean imParkhaus = false;  // Prüft, ob das Auto im Parkhaus ist
 
     public Parkhaus() {
         this.parkplaetze = new Parkplaetze(20);  // 20 Parkplaetze
@@ -31,7 +33,7 @@ public class Parkhaus {
             System.out.println("3. Parkhaus verlassen");
             System.out.println("4. Stockwerk wechseln");
             System.out.println("5. Simulation beenden");
-            System.out.print("Wählen Sie eine Option: ");
+            System.out.print("Waehlen Sie eine Option: ");
 
             int auswahl = scanner.nextInt();
 
@@ -51,7 +53,7 @@ public class Parkhaus {
                     if (ticket != null && imParkhaus) {
                         ticketAutomat.bezahlen(ticket);
                     } else {
-                        System.out.println("Sie müssen zuerst einfahren, bevor Sie bezahlen können!");
+                        System.out.println("Sie muessen zuerst einfahren, bevor Sie bezahlen können!");
                     }
                 }
                 case 3 -> {
@@ -60,10 +62,10 @@ public class Parkhaus {
                             ausfahrtSchranke.oeffnen();
                             parkplaetze.verlassen();
                             ausfahrtSchranke.schliessen();
-                            ticket = null;  // Reset the ticket
+                            ticket = null;  // Ticket zurücksetzen
                             imParkhaus = false;
                         } else {
-                            System.out.println("Sie können das Parkhaus nicht verlassen, ohne zu bezahlen!");
+                            System.out.println("Sie koennen das Parkhaus nicht verlassen, ohne zu bezahlen!");
                         }
                     } else {
                         System.out.println("Sie sind nicht im Parkhaus!");
@@ -79,17 +81,17 @@ public class Parkhaus {
                         } else if (stockwerkWahl == 2) {
                             stockwerke.runterfahren();
                         } else {
-                            System.out.println("Ungültige Option!");
+                            System.out.println("Ungueltige Option!");
                         }
                     } else {
-                        System.out.println("Sie müssen zuerst einfahren, um das Stockwerk zu wechseln!");
+                        System.out.println("Sie muessen zuerst einfahren, um das Stockwerk zu wechseln!");
                     }
                 }
                 case 5 -> {
                     continueSimulation = false;
                     System.out.println("Simulation beendet.");
                 }
-                default -> System.out.println("Ungültige Option!");
+                default -> System.out.println("Ungueltige Option!");
             }
         }
     }

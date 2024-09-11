@@ -1,3 +1,5 @@
+//Erstellt von: Rui Goncalves Pereira
+
 public class Stockwerke {
     private int anzahlStockwerke;
     private int aktuellerStockwerk;

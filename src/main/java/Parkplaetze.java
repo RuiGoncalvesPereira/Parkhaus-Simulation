@@ -1,3 +1,5 @@
+//Erstellt von: Rui Goncalves Pereira
+
 import java.util.Optional;
 
 public class Parkplaetze {
@@ -12,17 +14,17 @@ public class Parkplaetze {
     }
 
     public void parken() {
-        // Optional with lambda to check and reduce freiePlaetze
+        // Prüft, ob es freie Parkplätze gibt (freiePlaetze > 0).
         Optional.of(freiePlaetze)
                 .filter(freie -> freie > 0)
                 .ifPresent(freie -> {
                     freiePlaetze = freie - 1;
-                    System.out.println("Ein Fahrzeug hat geparkt. Verfügbare Parkplätze: " + freiePlaetze);
+                    System.out.println("Ein Fahrzeug hat geparkt. Verfügbare Parkplaetze: " + freiePlaetze);
                 });
     }
 
     public void verlassen() {
         freiePlaetze++;
-        System.out.println("Ein Fahrzeug hat das Parkhaus verlassen. Verfügbare Parkplätze: " + freiePlaetze);
+        System.out.println("Ein Fahrzeug hat das Parkhaus verlassen. Verfügbare Parkplaetze: " + freiePlaetze);
     }
 }

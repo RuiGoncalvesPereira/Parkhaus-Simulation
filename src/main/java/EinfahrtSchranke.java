@@ -1,3 +1,5 @@
+//Erstellt von: Rui Goncalves Pereira
+
 public class EinfahrtSchranke extends Schranke {
 
     @Override
