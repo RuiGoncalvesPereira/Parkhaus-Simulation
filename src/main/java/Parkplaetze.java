@@ -1,30 +1,27 @@
-//Erstellt von: Rui Goncalves Pereira
-
-import java.util.Optional;
-
 public class Parkplaetze {
     private int freiePlaetze;
+    private AusgabeSchnittstelle ausgabeSchnittstelle;
 
-    public Parkplaetze(int freiePlaetze) {
+    public Parkplaetze(int freiePlaetze, AusgabeSchnittstelle ausgabeSchnittstelle) {
         this.freiePlaetze = freiePlaetze;
+        this.ausgabeSchnittstelle = ausgabeSchnittstelle;
     }
 
     public int getFreiePlaetze() {
         return freiePlaetze;
     }
 
-    public void parken() {
-        // Prüft, ob es freie Parkplätze gibt (freiePlaetze > 0).
-        Optional.of(freiePlaetze)
-                .filter(freie -> freie > 0)
-                .ifPresent(freie -> {
-                    freiePlaetze = freie - 1;
-                    System.out.println("Ein Fahrzeug hat geparkt. Verfügbare Parkplaetze: " + freiePlaetze);
-                });
+    public void parkieren() {
+        if (freiePlaetze > 0) {
+            freiePlaetze -= 1;
+            ausgabeSchnittstelle.nachrichtAnzeigen("Ein Fahrzeug hat geparkt. Verfuegbare Parkplaetze: " + freiePlaetze);
+        } else {
+            ausgabeSchnittstelle.nachrichtAnzeigen("Keine freien Parkplaetze verfuegbar.");
+        }
     }
 
     public void verlassen() {
-        freiePlaetze++;
-        System.out.println("Ein Fahrzeug hat das Parkhaus verlassen. Verfügbare Parkplaetze: " + freiePlaetze);
+        freiePlaetze += 1;
+        ausgabeSchnittstelle.nachrichtAnzeigen("Ein Fahrzeug hat das Parkhaus verlassen. Verfuegbare Parkplaetze: " + freiePlaetze);
     }
 }

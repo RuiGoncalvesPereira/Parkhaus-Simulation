@@ -1,8 +1,7 @@
-//Erstellt von: Rui Goncalves Pereira
-
 public class Main {
     public static void main(String[] args) {
-        Parkhaus parkhaus = new Parkhaus();
+        AusgabeSchnittstelle ausgabe = new KonsolenAusgabe();
+        Parkhaus parkhaus = new Parkhaus(ausgabe);
         parkhaus.simulationStarten();
     }
 }

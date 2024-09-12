@@ -1,5 +1,3 @@
-//Erstellt von: Rui Goncalves Pereira
-
 import java.util.Scanner;
 
 public class Parkhaus {
@@ -10,29 +8,31 @@ public class Parkhaus {
     private Ticket ticket;
     private EinfahrtSchranke einfahrtSchranke;
     private AusfahrtSchranke ausfahrtSchranke;
-    private boolean imParkhaus = false;  // Prüft, ob das Auto im Parkhaus ist
+    private boolean imParkhaus = false;
+    private AusgabeSchnittstelle ausgabeSchnittstelle;
 
-    public Parkhaus() {
-        this.parkplaetze = new Parkplaetze(20);  // 20 Parkplaetze
-        this.ticketAutomat = new TicketAutomat();
-        this.einfahrtSchranke = new EinfahrtSchranke();
-        this.ausfahrtSchranke = new AusfahrtSchranke();
+    public Parkhaus(AusgabeSchnittstelle ausgabeSchnittstelle) {
+        this.ausgabeSchnittstelle = ausgabeSchnittstelle;
+        this.parkplaetze = new Parkplaetze(20, ausgabeSchnittstelle);  // 20 Parkplaetze
+        this.ticketAutomat = new TicketAutomat(ausgabeSchnittstelle);
+        this.einfahrtSchranke = new EinfahrtSchranke(ausgabeSchnittstelle);
+        this.ausfahrtSchranke = new AusfahrtSchranke(ausgabeSchnittstelle);
         this.stockwerke = new Stockwerke(3);  // Parkhaus mit 3 Stockwerken
-        this.display = new ParkhausDisplay(parkplaetze);
+        this.display = new ParkhausDisplay(parkplaetze, ausgabeSchnittstelle);
         this.ticket = null;
     }
 
     public void simulationStarten() {
         Scanner scanner = new Scanner(System.in);
-        boolean continueSimulation = true;
+        boolean simulationFortsetzen = true;
 
-        while (continueSimulation) {
+        while (simulationFortsetzen) {
             display.anzeigen();
-            System.out.println("1. Ticket ziehen und Einfahren");
-            System.out.println("2. Ticket bezahlen");
-            System.out.println("3. Parkhaus verlassen");
-            System.out.println("4. Stockwerk wechseln");
-            System.out.println("5. Simulation beenden");
+            ausgabeSchnittstelle.nachrichtAnzeigen("1. Ticket ziehen und einfahren");
+            ausgabeSchnittstelle.nachrichtAnzeigen("2. Ticket bezahlen");
+            ausgabeSchnittstelle.nachrichtAnzeigen("3. Parkhaus verlassen");
+            ausgabeSchnittstelle.nachrichtAnzeigen("4. Stockwerk wechseln");
+            ausgabeSchnittstelle.nachrichtAnzeigen("5. Simulation beenden");
             System.out.print("Waehlen Sie eine Option: ");
 
             int auswahl = scanner.nextInt();
@@ -41,57 +41,64 @@ public class Parkhaus {
                 case 1 -> {
                     if (!imParkhaus) {
                         ticket = ticketAutomat.ticketZiehen();
-                        einfahrtSchranke.oeffnen();
-                        parkplaetze.parken();
-                        einfahrtSchranke.schliessen();
-                        imParkhaus = true;
+                        if (ticket != null) {
+                            einfahrtSchranke.oeffnen();
+                            parkplaetze.parkieren();
+                            einfahrtSchranke.schliessen();
+                            imParkhaus = true;
+                        }
                     } else {
-                        System.out.println("Sie sind bereits im Parkhaus!");
+                        ausgabeSchnittstelle.nachrichtAnzeigen("Sie sind bereits im Parkhaus.");
                     }
                 }
                 case 2 -> {
                     if (ticket != null && imParkhaus) {
                         ticketAutomat.bezahlen(ticket);
                     } else {
-                        System.out.println("Sie muessen zuerst einfahren, bevor Sie bezahlen können!");
+                        ausgabeSchnittstelle.nachrichtAnzeigen("Sie muessen ein Ticket ziehen, um zu bezahlen!");
                     }
                 }
                 case 3 -> {
-                    if (imParkhaus) {
-                        if (ticket != null && ticket.isBezahlt()) {
-                            ausfahrtSchranke.oeffnen();
-                            parkplaetze.verlassen();
-                            ausfahrtSchranke.schliessen();
-                            ticket = null;  // Ticket zurücksetzen
-                            imParkhaus = false;
+                    if (imParkhaus && ticket != null) {
+                        if (ticket.isBezahlt()) {
+                            // Nur verlassen, wenn man im Erdgeschoss ist (Stockwerk 0)
+                            if (stockwerke.getAktuellesStockwerk() == 0) {
+                                ausfahrtSchranke.oeffnen();
+                                parkplaetze.verlassen();
+                                ausfahrtSchranke.schliessen();
+                                ticket = null;
+                                imParkhaus = false;
+                            } else {
+                                ausgabeSchnittstelle.nachrichtAnzeigen("Sie muessen im Erdgeschoss (Stockwerk 0) sein, um das Parkhaus zu verlassen!");
+                            }
                         } else {
-                            System.out.println("Sie koennen das Parkhaus nicht verlassen, ohne zu bezahlen!");
+                            ausgabeSchnittstelle.nachrichtAnzeigen("Sie koennen das Parkhaus nicht verlassen, ohne zu bezahlen!");
                         }
                     } else {
-                        System.out.println("Sie sind nicht im Parkhaus!");
+                        ausgabeSchnittstelle.nachrichtAnzeigen("Sie sind nicht im Parkhaus!");
                     }
                 }
                 case 4 -> {
                     if (imParkhaus) {
-                        System.out.println("1. Hochfahren");
-                        System.out.println("2. Runterfahren");
+                        ausgabeSchnittstelle.nachrichtAnzeigen("1. Hochfahren");
+                        ausgabeSchnittstelle.nachrichtAnzeigen("2. Runterfahren");
                         int stockwerkWahl = scanner.nextInt();
                         if (stockwerkWahl == 1) {
                             stockwerke.hochfahren();
                         } else if (stockwerkWahl == 2) {
                             stockwerke.runterfahren();
                         } else {
-                            System.out.println("Ungueltige Option!");
+                            ausgabeSchnittstelle.nachrichtAnzeigen("Ungueltige Option!");
                         }
                     } else {
-                        System.out.println("Sie muessen zuerst einfahren, um das Stockwerk zu wechseln!");
+                        ausgabeSchnittstelle.nachrichtAnzeigen("Sie muessen zuerst einfahren, um das Stockwerk zu wechseln!");
                     }
                 }
                 case 5 -> {
-                    continueSimulation = false;
-                    System.out.println("Simulation beendet.");
+                    simulationFortsetzen = false;
+                    ausgabeSchnittstelle.nachrichtAnzeigen("Simulation beendet.");
                 }
-                default -> System.out.println("Ungueltige Option!");
+                default -> ausgabeSchnittstelle.nachrichtAnzeigen("Ungueltige Option!");
             }
         }
     }

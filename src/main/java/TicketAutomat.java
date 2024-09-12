@@ -1,21 +1,30 @@
-//Erstellt von: Rui Goncalves Pereira
-
-import java.util.Optional;
-
 public class TicketAutomat {
+    private boolean ticketGegeben = false;
+    private AusgabeSchnittstelle ausgabeSchnittstelle;
 
-    public void bezahlen(Ticket ticket) {
-        //Prüft ob das Ticket vorhanden und schon bezahlt ist
-        Optional.ofNullable(ticket)
-                .filter(t -> !t.isBezahlt())
-                .ifPresentOrElse(t -> {
-                    double endpreis = t.preisrechner();
-                    System.out.println("Ticket bezahlt! Der Betrag betraegt: CHF " + endpreis + ".");
-                    t.setBezahlt(true);
-                }, () -> System.out.println("Das Ticket wurde bereits bezahlt!"));
+    public TicketAutomat(AusgabeSchnittstelle ausgabeSchnittstelle) {
+        this.ausgabeSchnittstelle = ausgabeSchnittstelle;
     }
 
     public Ticket ticketZiehen() {
-        return new Ticket();
+        if (!ticketGegeben) {
+            ticketGegeben = true;
+            ausgabeSchnittstelle.nachrichtAnzeigen("Ticket erfolgreich gezogen.");
+            return new Ticket();
+        } else {
+            ausgabeSchnittstelle.nachrichtAnzeigen("Sie haben bereits ein Ticket gezogen.");
+            return null;
+        }
+    }
+
+    public void bezahlen(Ticket ticket) {
+        if (ticket != null && !ticket.isBezahlt()) {
+            double endpreis = ticket.preisrechner();
+            ausgabeSchnittstelle.nachrichtAnzeigen("Ticket bezahlt! Betrag: CHF " + endpreis + ".");
+            ticket.setBezahlt(true);
+            ticketGegeben = false;
+        } else {
+            ausgabeSchnittstelle.nachrichtAnzeigen("Das Ticket wurde bereits bezahlt oder ist nicht vorhanden!");
+        }
     }
 }

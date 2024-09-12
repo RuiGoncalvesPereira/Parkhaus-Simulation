@@ -1,12 +1,13 @@
-//Erstellt von: Rui Goncalves Pereira
 public class ParkhausDisplay {
     private Parkplaetze parkplaetze;
+    private AusgabeSchnittstelle ausgabeSchnittstelle;
 
-    public ParkhausDisplay(Parkplaetze parkplaetze) {
+    public ParkhausDisplay(Parkplaetze parkplaetze, AusgabeSchnittstelle ausgabeSchnittstelle) {
         this.parkplaetze = parkplaetze;
+        this.ausgabeSchnittstelle = ausgabeSchnittstelle;
     }
 
     public void anzeigen() {
-        System.out.println("Freie Parkplaetze: " + parkplaetze.getFreiePlaetze());
+        ausgabeSchnittstelle.nachrichtAnzeigen("Verfuegbare Parkplaetze: " + parkplaetze.getFreiePlaetze());
     }
 }

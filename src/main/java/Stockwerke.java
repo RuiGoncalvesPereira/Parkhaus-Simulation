@@ -1,35 +1,35 @@
-//Erstellt von: Rui Goncalves Pereira
-
 public class Stockwerke {
     private int anzahlStockwerke;
-    private int aktuellerStockwerk;
+    private int aktuellesStockwerk;
 
     public Stockwerke(int anzahlStockwerke) {
         this.anzahlStockwerke = anzahlStockwerke;
-        this.aktuellerStockwerk = 0;
+        this.aktuellesStockwerk = 0;
     }
 
-    // Fährt nach oben, wenn es noch ein höheres Stockwerk gibt
     public void hochfahren() {
-        if (aktuellerStockwerk < anzahlStockwerke - 1) {
-            aktuellerStockwerk++;
-            System.out.println("Sie sind im: " + aktuellerStockwerk +" Stockwerk." );
+        if (aktuellesStockwerk < anzahlStockwerke - 1) {
+            aktuellesStockwerk++;
+            System.out.println("Sie sind im: " + aktuellesStockwerk + " Stockwerk.");
         } else {
             System.out.println("Kein weiteres Stockwerk!");
         }
     }
 
-    // Fährt nach unten, wenn es noch ein tieferes Stockwerk gibt
     public void runterfahren() {
-        if (aktuellerStockwerk > 0) {
-            aktuellerStockwerk--;
-            System.out.println("Sie sind im: " + aktuellerStockwerk + " Stockwerk.");
+        if (aktuellesStockwerk > 0) {
+            aktuellesStockwerk--;
+            System.out.println("Sie sind im: " + aktuellesStockwerk + " Stockwerk.");
         } else {
             System.out.println("Kein weiteres Stockwerk!");
         }
     }
 
-    public int getAktuellerStockwerk() {
-        return aktuellerStockwerk;
+    public int getAktuellesStockwerk() {
+        return aktuellesStockwerk;
+    }
+
+    public int getAnzahlStockwerke() {
+        return anzahlStockwerke;
     }
 }
